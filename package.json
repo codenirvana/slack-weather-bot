@@ -1,0 +1,30 @@
+{
+  "name": "slack-weather-bot",
+  "version": "1.0.0",
+  "description": "Slack weather bot using natural language processing",
+  "main": "index.js",
+  "dependencies": {
+    "apiai": "^2.0.5",
+    "request": "^2.72.0",
+    "botkit": "^0.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codenirvana/slack-weather-bot.git"
+  },
+  "keywords": [
+    "slack",
+    "weather",
+    "bot"
+  ],
+  "author": "Udit Vasu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codenirvana/slack-weather-bot/issues"
+  },
+  "homepage": "https://github.com/codenirvana/slack-weather-bot#readme"
+}
