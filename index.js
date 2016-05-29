@@ -1,8 +1,6 @@
-'use strict';
-
 var Botkit = require('botkit');
 var Apiai = require('apiai');
-var fetch = require("request");
+var request = require("request");
 var util = require('util');
 
 var slackToken = process.env.SLACK_TOKEN || '<slack-bot-token>';
@@ -29,22 +27,21 @@ controller.spawn({
     token: slackToken
 }).startRTM(function(err, bot, payload) {
     if (err) {
-        throw new Error('Error connecting to slack: ', err)
+        throw new Error('Error connecting to slack: ', err);
     }
-    console.log('Connected to slack');
+    console.log('Connected to Slack');
 });
 
 var apiai = Apiai(apiaiToken);
 
 controller.hears('', ['direct_message', 'direct_mention', 'mention'], function(bot, message) {
-    var request = apiai.textRequest(message.text);
+    var app = apiai.textRequest(message.text);
 
-    request.on('response', function(response) {
-        console.log(response.result);
-        if (response.result.parameters && response.result.parameters['weather'] != undefined) {
+    app.on('response', function(response) {
+        if (response.result.parameters && response.result.parameters.weather !== undefined) {
             var city = response.result.parameters['geo-city'];
             if (city) {
-                fetch(util.format(weatherURL, city), function(error, response, body) {
+                request(util.format(weatherURL, city), function(error, response, body) {
                     var Weather = JSON.parse(body);
                     if (!error && response.statusCode == 200) {
                         var temp = Weather.main.temp;
@@ -64,10 +61,10 @@ controller.hears('', ['direct_message', 'direct_mention', 'mention'], function(b
         }
     });
 
-    request.on('error', function(error) {
+    app.on('error', function(error) {
         console.log(error);
     });
 
-    request.end();
+    app.end();
 
 });
