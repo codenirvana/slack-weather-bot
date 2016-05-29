@@ -1,6 +1,5 @@
-## Slack weather bot using natural language processing
+# Slack Weather BOT
 
 
 ## ToDo
 - [ ] Add docs
-- [ ] Unit test
