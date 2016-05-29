@@ -2,14 +2,14 @@
 
 var Botkit = require('botkit');
 var Apiai = require('apiai');
-var fetch = require("request")
-
+var fetch = require("request");
+var util = require('util');
 
 var slackToken = process.env.SLACK_TOKEN || '<slack-bot-token>';
 var apiaiToken = process.env.APIAI_TOKEN || '<api.ai-token>';
 var weatherToken = process.env.WEATHER_TOKEN || '<openweathermap-token>';
 
-var weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=CITYHERE&units=metric&appid=" + weatherToken;
+var weatherURL = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&appid=" + weatherToken;
 
 var weatherConditions = {
     Thunderstorm: ":zap:",
@@ -19,7 +19,6 @@ var weatherConditions = {
     Clear: ":sunny:",
     Clouds: ":cloud:",
     Extreme: ":tornado:",
-
 };
 
 var controller = Botkit.slackbot({
@@ -45,7 +44,7 @@ controller.hears('', ['direct_message', 'direct_mention', 'mention'], function(b
         if (response.result.parameters && response.result.parameters['weather'] != undefined) {
             var city = response.result.parameters['geo-city'];
             if (city) {
-                fetch(weatherURL.replace('CITYHERE', city), function(error, response, body) {
+                fetch(util.format(weatherURL, city), function(error, response, body) {
                     var Weather = JSON.parse(body);
                     if (!error && response.statusCode == 200) {
                         var temp = Weather.main.temp;
@@ -54,7 +53,6 @@ controller.hears('', ['direct_message', 'direct_mention', 'mention'], function(b
                         if (condition in weatherConditions) {
                             emoji = weatherConditions[condition];
                         }
-
                         bot.reply(message, "Its " + temp + "°C in " + city + " and looks " + condition + emoji);
                     }
                 });
@@ -70,5 +68,6 @@ controller.hears('', ['direct_message', 'direct_mention', 'mention'], function(b
         console.log(error);
     });
 
-    request.end()
+    request.end();
+
 });
