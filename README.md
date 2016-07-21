@@ -1,5 +1,3 @@
 # Slack Weather BOT
 
-
-## ToDo
-- [ ] Add docs
+Slack weather bot using natural language processing
