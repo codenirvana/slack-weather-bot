@@ -31,3 +31,7 @@ node index.js
 ```
 
 Finally add bot user to slack!
+
+## ToDo
+- [ ] Add Screenshot/GIF
+- [ ] Improve BOT reply
