@@ -12,7 +12,7 @@ Slack weather bot using natural language processing
 - [OpenWeatherMap](http://openweathermap.org/appid)
 
 ## Getting Started
-Update token variables or environment variables
+Update token variables or add environment variables
 
 ```
 var slackToken = process.env.SLACK_TOKEN || '<slack-bot-token>';
@@ -34,4 +34,4 @@ Finally add bot user to slack!
 
 ## ToDo
 - [ ] Add Screenshot/GIF
-- [ ] Improve BOT reply
+- [ ] Improve BOT reply / api.ai
